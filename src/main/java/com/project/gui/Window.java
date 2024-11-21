@@ -28,7 +28,7 @@ public class Window extends GameApplication {
 
 
 
-        Square s = Square.GetInstance();
+        Square s = new Square();
 
         RectSize SquareSize = Renderer.PXSize(s , scale);
         Renderer.DrawSquare(s , WindowWidth / 2 - SquareSize.w / 2 ,
