@@ -17,6 +17,7 @@ public class Pieces  {
         boolean [][] discription = {
                 {true},
                 {true},
+                {true},
                 {true}
         };
 
