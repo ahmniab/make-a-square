@@ -2,14 +2,40 @@ package com.project.gui;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.SpawnData;
-import com.project.data.Piece;
-import com.project.data.RectSize;
-import com.project.data.Square;
+import com.project.data.*;
 import javafx.scene.paint.Color;
 
 public class Renderer {
     final static int BlockWidth = 50;
     final static int Margin = 2;
+    final static int TextSectionSize = 150;
+
+    private final static Color Colors[] = {
+            Color.TOMATO ,
+            Color.GREENYELLOW ,
+            Color.BROWN ,
+            Color.CADETBLUE,
+            Color.CORAL,
+            Color.DEEPPINK
+    };
+    public static Color GetColor(int id){
+        if (id >= 0 && id < Colors.length ) return Colors[id];
+        return Color.LIGHTGRAY;
+    }
+    public static Color StateColor(ThreadState state){
+        Color c = Color.BLACK;
+        switch (state){
+            case NOT_STARTED -> c = Color.BLACK;
+            case RUNNING -> c = Color.BLUE;
+            case SUCCEEDED -> c = Color.GREEN;
+            case FAILED -> c = Color.RED;
+
+        }
+        return c;
+
+    }
+
+
     public static void DrawPiece(Piece p , int x , int y , float scale){
         int XMargin = 0;
         int YMargin = 0;
@@ -20,7 +46,7 @@ public class Renderer {
                 if(p.discription[row][col]){
                     FXGL.spawn("block",
                             new SpawnData(x + col * (ScaledWidth + YMargin), y + row * (ScaledWidth + XMargin))
-                                    .put("color", p.color)
+                                    .put("color", Colors[p.piece_number])
                                     .put("width", ScaledWidth));
                 }
                 YMargin = Margin ;
@@ -31,31 +57,37 @@ public class Renderer {
 
         }
     }
-    public static void DrawSquare(Square s , int x , int y , float scale ){
-        int XMargin = 0;
-        int YMargin = 0;
-        int ScaledWidth = (int)(BlockWidth * scale);
+    public static void DrawSquare(ThreadTracker t , int x , int y , float scale ){
+        FXGL.spawn("StateSquare",
+                new SpawnData(x, y)
+                        .put("Tracker",t)
+                        .put("scale", scale));
 
-        for (int row = 0; row < s.data.length; row++) {
-            for (int col = 0; col < s.data[row].length; col++) {
-                int BlockX = x + col * (ScaledWidth + YMargin);
-                int BlockY = y + row * (ScaledWidth + XMargin);
-                if(s.data[row][col] == -1){ // empty block
-                    FXGL.spawn("block",
-                            new SpawnData(BlockX, BlockY)
-                                    .put("color", Color.GRAY)
-                                    .put("width", ScaledWidth));
-                }else {
-                    // draw piece color
+    }
+
+    public static void DrawThreadTrackers(ThreadTracker [] trackers ,float scale){
+        int WindowWidth  = (int) FXGL.getAppWidth();
+        int WindowHeight = (int) FXGL.getAppHeight();
+        RectSize TSize = PXSize(trackers[0].square ,scale);
+        int ThreadBlockMargin = 30;
+        int text_section = 0;
+
+        for (int i = 0 , row = 0 ; row < 2 ; row++) {
+            for (int col = 0 ; col < 3 ; col++) {
+                int x = WindowWidth  - (col+1)*(TSize.w + ThreadBlockMargin);
+                int y = row*(TSize.h + ThreadBlockMargin) + text_section;
+                try {
+                    Renderer.DrawSquare(trackers[i], x, y, scale);
+                }catch (Exception e){
+                    break;
                 }
-                YMargin = Margin;
+
+                i++;
             }
-            XMargin = Margin;
-            YMargin = 0;
-
-
+            text_section = TextSectionSize;
         }
     }
+
     public static RectSize PXSize(Piece p ,float scale){
         int ScaledWidth = (int)(BlockWidth * scale);
 

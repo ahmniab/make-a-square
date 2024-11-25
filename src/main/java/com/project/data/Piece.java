@@ -7,15 +7,12 @@ public class Piece {
     public int rows;
     public int columns;
     public boolean [][] discription;
-    public Color color;
-    public Piece(int piece_number, Color color ,boolean [][] discription ) {
+    public Piece(int piece_number, boolean [][] discription ) {
         setDiscription(discription);
-        this.color = color;
         this.piece_number = piece_number;
     }
 
-    public Piece(int piece_number, Color color) {
-        this.color = color;
+    public Piece(int piece_number) {
         this.piece_number = piece_number;
     }
 

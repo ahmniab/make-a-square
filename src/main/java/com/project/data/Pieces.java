@@ -1,7 +1,5 @@
 package com.project.data;
 
-import javafx.scene.paint.Color;
-
 public class Pieces  {
     public static int ID = 0;
     public static Piece NewOPiece() {
@@ -10,7 +8,7 @@ public class Pieces  {
                 {true,true}
         };
 
-        return new Piece(ID++, Color.TOMATO,discription);
+        return new Piece(ID++, discription);
 
     }
     public static Piece NewIPiece() {
@@ -21,7 +19,7 @@ public class Pieces  {
                 {true}
         };
 
-        return new Piece(ID++, Color.GREENYELLOW,discription);
+        return new Piece(ID++, discription);
 
     }
     public static Piece NewZPiece() {
@@ -31,7 +29,7 @@ public class Pieces  {
 
         };
 
-        return new Piece(ID++, Color.BROWN,discription);
+        return new Piece(ID++, discription);
 
     }
 
@@ -43,7 +41,7 @@ public class Pieces  {
 
         };
 
-        return new Piece(ID++, Color.CADETBLUE,discription);
+        return new Piece(ID++, discription);
 
     }
 

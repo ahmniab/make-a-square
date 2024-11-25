@@ -13,4 +13,7 @@ public class Square {
         };
         data = _data;
     }
+    public Square(int [][] _data){
+        data = _data;
+    }
 }
