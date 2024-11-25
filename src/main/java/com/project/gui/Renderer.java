@@ -57,7 +57,7 @@ public class Renderer {
 
         }
     }
-    public static void DrawSquare(ThreadTracker t , int x , int y , float scale ){
+    public static void DrawTracker(ThreadTracker t , int x , int y , float scale ){
         FXGL.spawn("StateSquare",
                 new SpawnData(x, y)
                         .put("Tracker",t)
@@ -77,7 +77,7 @@ public class Renderer {
                 int x = WindowWidth  - (col+1)*(TSize.w + ThreadBlockMargin);
                 int y = row*(TSize.h + ThreadBlockMargin) + text_section;
                 try {
-                    Renderer.DrawSquare(trackers[i], x, y, scale);
+                    Renderer.DrawTracker(trackers[i], x, y, scale);
                 }catch (Exception e){
                     break;
                 }

@@ -23,6 +23,12 @@ public class Window extends GameApplication {
         ThreadTracker[] trackers = Elements.GenerateNTrackers(6);
         Renderer.DrawThreadTrackers(trackers , ThreadScale);
 
+        ThreadTracker MainTracker = new ThreadTracker(new Square() ,-1);
+        MainTracker.threadState = ThreadState.RUNNING;
+        Renderer.DrawTracker(MainTracker ,
+                150 , WindowHeight / 2 -
+                        Renderer.PXSize(MainTracker.square,1.5f).h / 2 - 100 ,
+                1.5f);
 
 
 
