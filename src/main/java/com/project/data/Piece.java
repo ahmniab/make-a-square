@@ -3,22 +3,24 @@ package com.project.data;
 import javafx.scene.paint.Color;
 
 public class Piece {
+    private static int idCounter = 1;
     public int piece_number;
     public int rows;
     public int columns;
     public boolean [][] discription;
-    public Piece(int piece_number, boolean [][] discription ) {
-        setDiscription(discription);
-        this.piece_number = piece_number;
+
+
+    public Piece(int r,int c,String[] Lines) {
+        this.piece_number = idCounter++;
+        this.rows = r;
+        this.columns = c;
+        setDiscription(Lines);
     }
 
-    public Piece(int piece_number) {
-        this.piece_number = piece_number;
-    }
-
-    public void setDiscription(boolean[][] discription) {
-        this.discription = discription;
-        this.rows = discription.length;
-        this.columns = discription[0].length;
+    private void setDiscription(String[] Lines) {
+        this.discription = new boolean[this.rows][this.columns];
+        for (int i= 0;i<this.rows;i++)
+            for(int j=0;j<this.columns;j++)
+                this.discription[i][j] = Lines[i].charAt(j) == '1';
     }
 }
