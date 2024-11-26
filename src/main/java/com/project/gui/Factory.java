@@ -92,6 +92,8 @@ public class Factory implements EntityFactory {
                             rectangles.get(row).get(col).setFill(Renderer.GetColor(square.data[row][col]));
 
                     }
+                    StatusLabel.setFill(Renderer.StateColor(tracker.threadState));
+                    StatusLabel.setText(Elements.StateString(tracker.threadState));
                 })
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
