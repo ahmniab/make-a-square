@@ -20,7 +20,7 @@ public class PuzzleSolver extends Thread{
                 }
 
             }
-            tracker.UpdateWindow.run();
+            if (tracker.UpdateWindow != null) tracker.UpdateWindow.run();
             try {
                 Thread.sleep(500);
 

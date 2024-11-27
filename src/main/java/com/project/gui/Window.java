@@ -21,28 +21,15 @@ public class Window extends GameApplication {
     protected void initGame() {
         FXGL.getGameWorld().addEntityFactory(new Factory());
         float ThreadScale = 1f;
-        ThreadTracker[] trackers = Elements.GenerateNTrackers(6);
+        ThreadTracker[] trackers = GlobalData.getInstance().trackers;
         Renderer.DrawThreadTrackers(trackers , ThreadScale);
 
-        ThreadTracker MainTracker = new ThreadTracker(new Square() ,-1);
-        MainTracker.threadState = ThreadState.RUNNING;
+        ThreadTracker MainTracker = GlobalData.getInstance().MainTracker;
+
         Renderer.DrawTracker(MainTracker ,
                 150 , WindowHeight / 2 -
                         Renderer.PXSize(MainTracker.square,1.5f).h / 2 - 100 ,
                 1.5f);
-
-        PuzzleSolver solver1 = new PuzzleSolver(trackers[0]);
-        solver1.start();
-        PuzzleSolver solver2 = new PuzzleSolver(trackers[1]);
-        solver2.start();
-        PuzzleSolver solver3 = new PuzzleSolver(trackers[2]);
-        solver3.start();
-        PuzzleSolver solver4 = new PuzzleSolver(trackers[3]);
-        solver4.start();
-        PuzzleSolver solver5 = new PuzzleSolver(trackers[4]);
-        solver5.start();
-        PuzzleSolver solver6 = new PuzzleSolver(trackers[5]);
-        solver6.start();
 
 
     }

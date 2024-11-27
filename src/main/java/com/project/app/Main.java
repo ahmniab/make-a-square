@@ -31,6 +31,8 @@ PieceOperations.rotateClockWise(p);
 PieceOperations.rotateClockWise(p);
         System.out.println();
         PieceOperations.PrintPiece(p);
+        GlobalData.TrackerNumber = 5;
+        GlobalData g = GlobalData.getInstance();
 
         Window w = new Window();
         w.start(args);
