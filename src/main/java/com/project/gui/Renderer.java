@@ -19,7 +19,7 @@ public class Renderer {
             Color.DEEPPINK
     };
     public static Color GetColor(int id){
-        if (id >= 0 && id < Colors.length ) return Colors[id];
+        if (id >= 1 && id <= Colors.length ) return Colors[id];
         return Color.LIGHTGRAY;
     }
     public static Color StateColor(ThreadState state){

@@ -32,6 +32,9 @@ PieceOperations.rotateClockWise(p);
         System.out.println();
         PieceOperations.PrintPiece(p);
 
+        Window w = new Window();
+        w.start(args);
+
 
 
 

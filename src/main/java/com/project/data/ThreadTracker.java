@@ -4,6 +4,7 @@ public class ThreadTracker {
     public int id;
     public Square square;
     public ThreadState threadState;
+    public Runnable UpdateWindow;
     public ThreadTracker(Square s , int id){
         this.square = s;
         this.id = id;

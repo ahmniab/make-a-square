@@ -20,6 +20,13 @@ public class PuzzleSolver extends Thread{
                 }
 
             }
+            tracker.UpdateWindow.run();
+            try {
+                Thread.sleep(500);
+
+            } catch (Exception e) {
+                break;
+            }
         }
     }
 

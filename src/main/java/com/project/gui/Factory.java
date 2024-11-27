@@ -84,20 +84,15 @@ public class Factory implements EntityFactory {
         FXGL.getGameScene().addUINode(StatusLabel);
 
 
-        // Create a timeline to change colors dynamically
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(0.5), event -> {
-                    for (int row = 0; row < 4; row++) {
-                        for (int col = 0; col < 4; col++)
-                            rectangles.get(row).get(col).setFill(Renderer.GetColor(square.data[row][col]));
+        tracker.UpdateWindow = () -> {
+            for (int row = 0; row < 4; row++) {
+                    for (int col = 0; col < 4; col++)
+                        rectangles.get(row).get(col).setFill(Renderer.GetColor(square.data[row][col]));
 
-                    }
-                    StatusLabel.setFill(Renderer.StateColor(tracker.threadState));
-                    StatusLabel.setText(Elements.StateString(tracker.threadState));
-                })
-        );
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+                }
+                StatusLabel.setFill(Renderer.StateColor(tracker.threadState));
+                StatusLabel.setText(Elements.StateString(tracker.threadState));
+        };
 
         return root;
     }
