@@ -4,6 +4,7 @@ public class GlobalData {
     public static int TrackerNumber = 0;
     public ThreadTracker[] trackers;
     public ThreadTracker MainTracker;
+    public Piece [] pieces;
     private static GlobalData instance = null;
     private GlobalData(){
         trackers =  Elements.GenerateNTrackers(TrackerNumber);
@@ -14,6 +15,6 @@ public class GlobalData {
         if(instance == null){
             instance = new GlobalData();
         }
-        return new GlobalData();
+        return instance;
     }
 }

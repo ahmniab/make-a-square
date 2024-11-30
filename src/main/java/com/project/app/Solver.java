@@ -3,7 +3,11 @@ package com.project.app;
 import com.project.data.*;
 import java.util.Stack;
 
-public class Solver {
+public class Solver  {
+    ThreadTracker t ;
+    public Solver(ThreadTracker tracker) {
+        t=tracker;
+    }
 
     public boolean IsValid (Piece p,Square s ,int x,int y){
         for(int i=0;i<p.rows;i++)
@@ -52,7 +56,8 @@ public class Solver {
         return true ;
     }
 
-    public boolean Solve (Square s ,Piece[] pieces){
+    public boolean Solve (Piece[] pieces){
+        Square s = t.square;
         Stack<State> stack = new Stack<>();
         stack.push(new State( 0, 0, 0 ,s));
         while (!stack.isEmpty()) {
@@ -85,9 +90,17 @@ public class Solver {
                     System.out.print(stack.peek().S.data[i][j] +"   ");
                 System.out.println();
             }
+            s.data = stack.getLast().S.data;
+            if (t.UpdateWindow != null)t.UpdateWindow.run();
             System.out.println();
             System.out.println();
             System.out.println();
+            try {
+                Thread.sleep(300);
+
+            } catch (Exception e) {
+                break;
+            }
 
         }
         return false;
