@@ -41,6 +41,7 @@ public class Main {
         GlobalData data = GlobalData.getInstance();
         data.trackers = Elements.GenerateNTrackers(1);
         data.MainTracker = new ThreadTracker(new Square(),-1);
+        data.MainTracker.threadState = ThreadState.RUNNING;
         data.pieces = ps;
         PuzzleSolver solver = new PuzzleSolver(data.trackers[0]);
         solver.start();
