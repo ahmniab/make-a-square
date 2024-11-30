@@ -7,6 +7,7 @@ public class Piece {
     public int piece_number;
     public int rows;
     public int columns;
+    public int rotations;
     public boolean [][] discription;
 
 
@@ -22,5 +23,13 @@ public class Piece {
         for (int i= 0;i<this.rows;i++)
             for(int j=0;j<this.columns;j++)
                 this.discription[i][j] = Lines[i].charAt(j) == '1';
+    }
+    private void SetRotations ()
+    {
+        if (this.rows == this.columns) this.rotations = 3;
+        else if (this.rows == 1 || this.columns ==1) this.rotations = 2;
+        else this.rotations = 0;
+
+
     }
 }

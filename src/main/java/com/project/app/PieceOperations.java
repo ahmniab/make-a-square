@@ -15,10 +15,11 @@ public class PieceOperations {
         int temp = piece.rows;
         piece.rows = piece.columns;
         piece.columns = temp;
+
+        piece.rotations ++;
     }
 
-    public static void PrintPiece(Piece piece)
-    {
+    public static void PrintPiece(Piece piece) {
         for (int i = 0; i < piece.rows; i++)
         {
             for (int j = 0; j < piece.columns; j++)
@@ -28,5 +29,9 @@ public class PieceOperations {
         }
 
 
+    }
+
+    public static boolean IsRotatable(Piece piece){
+        return piece.rotations < 3;
     }
 }
