@@ -12,7 +12,7 @@ public class Solver  {
     public boolean IsValid (Piece p,Square s ,int x,int y){
         for(int i=0;i<p.rows;i++)
             for(int j=0;j<p.columns;j++)
-                if(p.discription[i][j])
+                if(p.description[i][j])
                 {
                     int XIndex = x + i;
                     int YIndex = y + j;
@@ -39,7 +39,7 @@ public class Solver  {
         Square New = copySquare(s);
         for (int i = 0; i < p.rows; i++) {
             for (int j = 0; j < p.columns; j++) {
-                if (p.discription[i][j]) {
+                if (p.description[i][j]) {
                     New.data[x+i][y+j] = p.piece_number ;
                 }
             }
@@ -58,8 +58,9 @@ public class Solver  {
 
     public boolean Solve (Piece[] pieces){
         Square s = t.square;
+        Square S = new Square();
         Stack<State> stack = new Stack<>();
-        stack.push(new State( 0, 0, 0 ,s));
+        stack.push(new State( 0, 0, 0 ,S));
         while (!stack.isEmpty()) {
 
             State cs = stack.pop();
@@ -69,20 +70,32 @@ public class Solver  {
 
             Piece C_piece = pieces[cs.index];
 
+            int PieceRotations = 4-pieces[cs.index].rotations;
+            for (int rotaion = 0;rotaion<PieceRotations; rotaion++) {
+                for (int i = cs.x; i < 4; i++) {
+                    for (int j = (i == cs.x ? cs.y : 0); j < 4; j++) {
+                        if (IsValid(C_piece, cs.S, i, j)) {
+                            Square NewSquare = PutPiece(C_piece, cs.S, i, j);
+                            stack.push(new State(0, 0, cs.index + 1, NewSquare));
+                            s.data = stack.getLast().S.data;
+                            if (t.UpdateWindow != null)t.UpdateWindow.run();
+                            try {
+                                Thread.sleep(300);
 
-            for (int i =cs.x; i<4; i++){
-                for(int j = ( i == cs.x ? cs.y : 0); j<4; j++){
-                    if(IsValid(C_piece,cs.S,i,j)){
-                        Square NewSquare = PutPiece(C_piece,cs.S,i,j);
-                        stack.push(new State( 0, 0, cs.index + 1, NewSquare));
+                            } catch (Exception e) {
+                                break;
+                            }
+                        }
+
                     }
-
                 }
-            }
-            if(PieceOperations.IsRotatable(pieces[cs.index])) {
+                if (cs.index == 0) break;
                 PieceOperations.rotateClockWise(pieces[cs.index]);
-                stack.push(new State(0, 0, cs.index, cs.S));
+
             }
+
+            pieces[cs.index].ResetRotations();
+
 
 
             for (int i =0;i<4;i++) {
@@ -90,17 +103,9 @@ public class Solver  {
                     System.out.print(stack.peek().S.data[i][j] +"   ");
                 System.out.println();
             }
-            s.data = stack.getLast().S.data;
-            if (t.UpdateWindow != null)t.UpdateWindow.run();
             System.out.println();
             System.out.println();
             System.out.println();
-            try {
-                Thread.sleep(300);
-
-            } catch (Exception e) {
-                break;
-            }
 
         }
         return false;

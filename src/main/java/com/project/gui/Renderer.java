@@ -41,9 +41,9 @@ public class Renderer {
         int YMargin = 0;
         int ScaledWidth = (int)(BlockWidth * scale);
 
-        for (int row = 0; row < p.discription.length; row++) {
-            for (int col = 0; col < p.discription[row].length; col++) {
-                if(p.discription[row][col]){
+        for (int row = 0; row < p.description.length; row++) {
+            for (int col = 0; col < p.description[row].length; col++) {
+                if(p.description[row][col]){
                     FXGL.spawn("block",
                             new SpawnData(x + col * (ScaledWidth + YMargin), y + row * (ScaledWidth + XMargin))
                                     .put("color", Colors[p.piece_number])
@@ -91,8 +91,8 @@ public class Renderer {
     public static RectSize PXSize(Piece p ,float scale){
         int ScaledWidth = (int)(BlockWidth * scale);
 
-        int h =  p.discription.length    * ScaledWidth + Margin;
-        int w =  p.discription[0].length * ScaledWidth + Margin;
+        int h =  p.description.length    * ScaledWidth + Margin;
+        int w =  p.description[0].length * ScaledWidth + Margin;
         return new RectSize(w,h);
     }
     public static RectSize PXSize(Square s , float scale){
