@@ -41,6 +41,7 @@ public class Helper {
 
         return true;
     }
+    
     public static int ScanInt(String text){
         while (true) {
             System.out.print(text);
@@ -51,6 +52,7 @@ public class Helper {
             }
         }
     }
+    
     public static int ScanInt(String text, int min, int max){
         while (true) {
             System.out.print(text);
@@ -73,5 +75,4 @@ public class Helper {
         }
         return s;
     }
-
 }

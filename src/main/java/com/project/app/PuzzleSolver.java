@@ -4,36 +4,36 @@ import com.project.data.*;
 
 import java.util.Stack;
 
-public class PuzzleSolver extends Thread{
+public class PuzzleSolver extends Thread {
     ThreadTracker tracker;
+    
     public PuzzleSolver(ThreadTracker tracker){
         super();
         this.tracker = tracker;
 
     }
+    
     @Override
     public void run() {
         System.out.println(getName()+" Started");
         tracker.threadState = ThreadState.RUNNING;
-//        Solver s = new Solver(tracker);
         boolean success = Solve();
         ThreadTracker __main_tracker = GlobalData.MainTracker;
+        
         if (success) {
             tracker.threadState = ThreadState.SUCCEEDED;
             __main_tracker.threadState = ThreadState.SUCCEEDED;
             __main_tracker.square.data = tracker.square.data;
-
-        }else {
-            __main_tracker.threadState = ThreadState.SUCCEEDED;
+        } else {
             tracker.threadState = ThreadState.FAILED;
         }
+        
         __main_tracker.UpdateWindow();
-
     }
 
-    public boolean IsValid (Piece p, Square s , int x, int y){
-        for(int i=0;i<p.rows;i++)
-            for(int j=0;j<p.columns;j++)
+    public boolean IsValid (Piece p, Square s, int x, int y){
+        for(int i=0; i < p.rows; i++)
+            for(int j=0; j < p.columns; j++)
                 if(p.description[i][j])
                 {
                     int XIndex = x + i;
