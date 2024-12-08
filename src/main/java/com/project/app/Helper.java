@@ -64,6 +64,7 @@ public class Helper {
                 if (!(x < min || x > max)) return x;
             } catch (Exception e) {
                 System.out.println("Invalid input");
+                s.nextLine();
             }
         }
     }
