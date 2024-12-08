@@ -4,6 +4,7 @@ import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.dsl.FXGL;
 import com.project.app.PuzzleSolver;
 import com.project.data.*;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Screen;
 
 
@@ -15,6 +16,18 @@ public class Window extends GameApplication {
         Settings.setHeight(WindowHeight);
         Settings.setTitle("project5 make a square");
         Settings.setGameMenuEnabled(false);
+    }
+    @Override
+    protected void initInput() {
+        FXGL.onKey(KeyCode.ENTER, "Start Solving",
+                () -> {
+                    GlobalData __data = GlobalData.getInstance();
+                    for (int i = 0; i < __data.solvers.length; i++) {
+                        if (__data.solvers[i].getState() == Thread.State.NEW) {
+                            __data.solvers[i].start();
+                        }
+                    }
+                });
     }
 
     @Override

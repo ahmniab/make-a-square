@@ -18,6 +18,14 @@ public class Piece {
         setDescription(Lines);
         SetRotations();
     }
+    public Piece(int r, int c, String[] l, int id) {
+        this.piece_number = id;
+        this.rows = r;
+        this.columns = c;
+        this.Lines = l;
+        setDescription(Lines);
+        SetRotations();
+    }
 
     private void setDescription(String[] Lines) {
         this.description = new boolean[this.rows][this.columns];

@@ -13,10 +13,10 @@ public class PuzzleSolver extends Thread{
     }
     @Override
     public void run() {
+        System.out.println(getName()+" Started");
         tracker.threadState = ThreadState.RUNNING;
-        GlobalData data = GlobalData.getInstance();
         Solver s = new Solver(tracker);
-        boolean success = s.Solve(data.pieces);
+        boolean success = s.Solve(tracker.pieces);
         ThreadTracker __main_tracker = GlobalData.getInstance().MainTracker;
         if (success) {
             tracker.threadState = ThreadState.SUCCEEDED;

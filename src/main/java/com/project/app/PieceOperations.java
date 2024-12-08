@@ -29,22 +29,22 @@ public class PieceOperations {
         // Add all four rotations
         for (int i = 0; i < Num; i++) {
             rotations.add(current);
-            current = RotateCopy( current.rows,current.columns, current.Lines);
+            current = RotateCopy(current);
         }
 
         return rotations.toArray(new Piece[0]);
     }
 
-    public static Piece RotateCopy(int rows ,int cols,String [] lines) {
-        String[] rotatedLines = new String[cols]; // Rotated matrix will have `cols` rows
-        for (int j = 0; j < cols; j++) {
+    public static Piece RotateCopy(Piece p) {
+        String[] rotatedLines = new String[p.columns]; // Rotated matrix will have `cols` rows
+        for (int j = 0; j < p.columns; j++) {
             StringBuilder newRow = new StringBuilder();
-            for (int i = rows - 1; i >= 0; i--) {
-                newRow.append(lines[i].charAt(j));
+            for (int i = p.rows - 1; i >= 0; i--) {
+                newRow.append(p.Lines[i].charAt(j));
             }
             rotatedLines[j] = newRow.toString();
         }
-        return new Piece(cols, rows, rotatedLines); // Swap rows and cols for new piece
+        return new Piece(p.columns, p.rows, rotatedLines, p.piece_number); // Swap rows and cols for new piece
     }
 
     public static void PrintPiece(Piece piece) {
