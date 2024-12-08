@@ -8,13 +8,16 @@ public class ThreadTracker {
     public int id;
     public Square square;
     public ThreadState threadState;
-    public Piece [] pieces;
+    public Piece[] pieces;
     public GuiData guiData;
+    
     public ThreadTracker(Square s , int id){
         this.square = s;
         this.id = id;
+        if (id != -1) this.pieces = GlobalData.pieces[id];
         threadState = ThreadState.NOT_STARTED;
     }
+    
     public void UpdateWindow(){
         if (guiData == null)
             return;

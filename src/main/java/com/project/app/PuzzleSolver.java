@@ -17,7 +17,7 @@ public class PuzzleSolver extends Thread{
         tracker.threadState = ThreadState.RUNNING;
 //        Solver s = new Solver(tracker);
         boolean success = Solve();
-        ThreadTracker __main_tracker = GlobalData.getInstance().MainTracker;
+        ThreadTracker __main_tracker = GlobalData.MainTracker;
         if (success) {
             tracker.threadState = ThreadState.SUCCEEDED;
             __main_tracker.threadState = ThreadState.SUCCEEDED;
@@ -84,8 +84,8 @@ public class PuzzleSolver extends Thread{
         Square S = new Square();
         Stack<com.project.data.State> stack = new Stack<>();
         stack.push(new com.project.data.State( 0, 0, 0 ,S));
+        
         while (!stack.isEmpty()) {
-
             com.project.data.State cs = stack.pop();
             if(IsSolved(cs.S)) {
                 return true;
@@ -95,7 +95,7 @@ public class PuzzleSolver extends Thread{
 
             Piece C_piece = pieces[cs.index];
 
-            int PieceRotations = 4-pieces[cs.index].rotations;
+            int PieceRotations = 4 - C_piece.rotations;
             for (int rotaion = 0;rotaion<PieceRotations; rotaion++) {
                 for (int i = cs.x; i < 4; i++) {
                     for (int j = (i == cs.x ? cs.y : 0); j < 4; j++) {

@@ -21,10 +21,9 @@ public class Window extends GameApplication {
     protected void initInput() {
         FXGL.onKey(KeyCode.ENTER, "Start Solving",
                 () -> {
-                    GlobalData __data = GlobalData.getInstance();
-                    for (int i = 0; i < __data.solvers.length; i++) {
-                        if (__data.solvers[i].getState() == Thread.State.NEW) {
-                            __data.solvers[i].start();
+                    for (int i = 0; i < GlobalData.solvers.length; i++) {
+                        if (GlobalData.solvers[i].getState() == Thread.State.NEW) {
+                            GlobalData.solvers[i].start();
                         }
                     }
                 });
@@ -34,10 +33,10 @@ public class Window extends GameApplication {
     protected void initGame() {
         FXGL.getGameWorld().addEntityFactory(new Factory());
         float ThreadScale = 1f;
-        ThreadTracker[] trackers = GlobalData.getInstance().trackers;
+        ThreadTracker[] trackers = GlobalData.trackers;
         Renderer.DrawThreadTrackers(trackers , ThreadScale);
 
-        ThreadTracker MainTracker = GlobalData.getInstance().MainTracker;
+        ThreadTracker MainTracker = GlobalData.MainTracker;
 
         Renderer.DrawTracker(MainTracker ,
                 150 , WindowHeight / 2 -

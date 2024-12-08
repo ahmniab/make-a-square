@@ -32,17 +32,12 @@ public class Helper {
         }
 
         //init threads
-        GlobalData.TrackerNumber = allPieces.length;
-        GlobalData __data = GlobalData.getInstance();
-        for (int i = 0; i < __data.trackers.length; i++) { // assign pieces to its thread tracker
-            __data.trackers[i].pieces = allPieces[i];
-        }
+        GlobalData.Init(allPieces.length, allPieces);
 
-        __data.solvers = new PuzzleSolver[__data.trackers.length];
-        for (int i = 0; i < __data.trackers.length; i++) { // assign trackers to its thread
-            __data.solvers[i] = new PuzzleSolver(__data.trackers[i]);
+        GlobalData.solvers = new PuzzleSolver[GlobalData.TrackerNumber];
+        for (int i = 0; i < GlobalData.TrackerNumber; i++) { // assign trackers to its thread
+            GlobalData.solvers[i] = new PuzzleSolver(GlobalData.trackers[i]);
         }
-
 
         return true;
     }
@@ -71,10 +66,10 @@ public class Helper {
     public static String StateString(ThreadState state){
         String s = "Failed to get status";
         switch (state){
-            case FAILED      -> s = "Failed To Solve"      ;
-            case RUNNING     -> s = "Running Now"          ;
-            case SUCCEEDED   -> s = "Succeeded"            ;
-            case NOT_STARTED -> s = "Thread Didn't Started";
+            case FAILED      -> s = "Failed To Solve"    ;
+            case RUNNING     -> s = "Running Now"        ;
+            case SUCCEEDED   -> s = "Succeeded"          ;
+            case NOT_STARTED -> s = "Thread Didn't Start";
         }
         return s;
     }
