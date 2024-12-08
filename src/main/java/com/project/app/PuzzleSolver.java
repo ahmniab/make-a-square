@@ -27,8 +27,7 @@ public class PuzzleSolver extends Thread{
             __main_tracker.threadState = ThreadState.SUCCEEDED;
             tracker.threadState = ThreadState.FAILED;
         }
-        if(tracker.UpdateWindow != null) tracker.UpdateWindow.run();
-        if(__main_tracker.UpdateWindow != null) __main_tracker.UpdateWindow.run();
+        __main_tracker.UpdateWindow();
 
     }
 

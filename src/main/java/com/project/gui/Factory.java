@@ -5,20 +5,15 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
-import com.project.data.Elements;
+import com.project.app.Helper;
 import com.project.data.Square;
-import com.project.data.ThreadState;
 import com.project.data.ThreadTracker;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +71,7 @@ public class Factory implements EntityFactory {
             }
         }
 
-        Text StatusLabel = new Text(Elements.StateString(tracker.threadState));
+        Text StatusLabel = new Text(Helper.StateString(tracker.threadState));
         StatusLabel.setTranslateX(data.getX());
         StatusLabel.setTranslateY(data.getY() + 4 * (smallSquareSize + margin) + 30); // Position below the square
         StatusLabel.setFill(Renderer.StateColor(tracker.threadState)); // Text color
@@ -84,15 +79,8 @@ public class Factory implements EntityFactory {
         FXGL.getGameScene().addUINode(StatusLabel);
 
 
-        tracker.UpdateWindow = () -> {
-            for (int row = 0; row < 4; row++) {
-                    for (int col = 0; col < 4; col++)
-                        rectangles.get(row).get(col).setFill(Renderer.GetColor(square.data[row][col]));
-
-                }
-                StatusLabel.setFill(Renderer.StateColor(tracker.threadState));
-                StatusLabel.setText(Elements.StateString(tracker.threadState));
-        };
+        tracker.guiData = new GuiData(StatusLabel, rectangles);
+        root.addComponent(new UpdateComponent(tracker));
 
         return root;
     }

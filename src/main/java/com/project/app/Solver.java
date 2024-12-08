@@ -66,7 +66,6 @@ public class Solver  {
 
             State cs = stack.pop();
             if(IsSolved(cs.S)) {
-                if (t.UpdateWindow != null)t.UpdateWindow.run();
                 return true;
             }
 
@@ -82,7 +81,6 @@ public class Solver  {
                             Square NewSquare = PutPiece(C_piece, cs.S, i, j);
                             stack.push(new State(0, 0, cs.index + 1, NewSquare));
                             s.data = stack.getLast().S.data;
-                            if (t.UpdateWindow != null)t.UpdateWindow.run();
                             try {
                                 Thread.sleep(300);
 

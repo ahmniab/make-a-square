@@ -39,7 +39,7 @@ public class DataEntry {
                     shape.add(reader.readLine().trim());
                 }
                 for(int ver =0; ver<numRotation; ver++){
-                    DE[ver][i] = new Piece(Rows, Columns, shape.toArray(new String[0]));
+                    DE[ver][i] = new Piece(Rows, Columns, shape.toArray(new String[0]), i );
                 }
 
             }
