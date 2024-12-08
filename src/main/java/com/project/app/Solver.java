@@ -56,15 +56,19 @@ public class Solver  {
         return true ;
     }
 
-    public boolean Solve (Piece[] pieces){
+    public boolean Solve (){
         Square s = t.square;
+        Piece [] pieces = t.pieces;
         Square S = new Square();
         Stack<State> stack = new Stack<>();
         stack.push(new State( 0, 0, 0 ,S));
         while (!stack.isEmpty()) {
 
             State cs = stack.pop();
-            if(IsSolved(cs.S)) return true ;
+            if(IsSolved(cs.S)) {
+                if (t.UpdateWindow != null)t.UpdateWindow.run();
+                return true;
+            }
 
             if(cs.index >= pieces.length) return false;
 

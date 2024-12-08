@@ -16,7 +16,7 @@ public class PuzzleSolver extends Thread{
         System.out.println(getName()+" Started");
         tracker.threadState = ThreadState.RUNNING;
         Solver s = new Solver(tracker);
-        boolean success = s.Solve(tracker.pieces);
+        boolean success = s.Solve();
         ThreadTracker __main_tracker = GlobalData.getInstance().MainTracker;
         if (success) {
             tracker.threadState = ThreadState.SUCCEEDED;

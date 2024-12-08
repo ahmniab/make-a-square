@@ -44,7 +44,7 @@ public class PieceOperations {
             }
             rotatedLines[j] = newRow.toString();
         }
-        return new Piece(p.columns, p.rows, rotatedLines, p.piece_number); // Swap rows and cols for new piece
+        return new Piece(p.columns, p.rows, rotatedLines); // Swap rows and cols for new piece
     }
 
     public static void PrintPiece(Piece piece) {

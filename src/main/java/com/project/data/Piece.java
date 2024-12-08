@@ -1,7 +1,7 @@
 package com.project.data;
 
 public class Piece {
-    private static int idCounter = 1;
+    private static int idCounter = 0;
     public int piece_number;
     public int rows;
     public int columns;
