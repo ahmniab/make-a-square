@@ -1,6 +1,7 @@
 package com.project.app;
 
 import com.project.data.*;
+import com.sun.source.tree.IfTree;
 
 import java.util.Stack;
 
@@ -15,19 +16,16 @@ public class PuzzleSolver extends Thread{
     public void run() {
         System.out.println(getName()+" Started");
         tracker.threadState = ThreadState.RUNNING;
-//        Solver s = new Solver(tracker);
         boolean success = Solve();
-        ThreadTracker __main_tracker = GlobalData.getInstance().MainTracker;
         if (success) {
             tracker.threadState = ThreadState.SUCCEEDED;
-            __main_tracker.threadState = ThreadState.SUCCEEDED;
-            __main_tracker.square.data = tracker.square.data;
+            GlobalData.getInstance().SubmitSolution(tracker.square.data);
 
         }else {
-            __main_tracker.threadState = ThreadState.SUCCEEDED;
             tracker.threadState = ThreadState.FAILED;
+            GlobalData.getInstance().SubmitFailed();
         }
-        __main_tracker.UpdateWindow();
+
 
     }
 
@@ -85,8 +83,12 @@ public class PuzzleSolver extends Thread{
         Stack<com.project.data.State> stack = new Stack<>();
         stack.push(new com.project.data.State( 0, 0, 0 ,S));
         while (!stack.isEmpty()) {
-
             com.project.data.State cs = stack.pop();
+
+            if (GlobalData.getInstance().MainTracker.threadState == ThreadState.SUCCEEDED) {
+                return IsSolved(cs.S);
+            }
+
             if(IsSolved(cs.S)) {
                 return true;
             }

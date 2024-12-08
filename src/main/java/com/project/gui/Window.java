@@ -27,6 +27,8 @@ public class Window extends GameApplication {
                             __data.solvers[i].start();
                         }
                     }
+                    if(__data.MainTracker.threadState == ThreadState.NOT_STARTED)
+                        __data.MainTracker.threadState = ThreadState.RUNNING;
                 });
     }
 
