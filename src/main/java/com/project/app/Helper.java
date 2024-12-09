@@ -11,7 +11,7 @@ public class Helper {
         //init vars
         File inputs_path = new File("inputs/");
         File[] files = inputs_path.listFiles();
-        Piece [][] allPieces;
+        Piece[] allPieces;
 
         // list all files
         if(files!=null){
@@ -32,7 +32,7 @@ public class Helper {
         }
 
         //init threads
-        GlobalData.Init(allPieces.length, allPieces);
+        GlobalData.Init(Piece.PossibleRotations(allPieces[0]), allPieces);
 
         GlobalData.solvers = new PuzzleSolver[GlobalData.TrackerNumber];
         for (int i = 0; i < GlobalData.TrackerNumber; i++) { // assign trackers to its thread

@@ -4,12 +4,12 @@ import com.project.app.PuzzleSolver;
 
 public class GlobalData {
     public static int TrackerNumber = 0;
-    public static Piece[][] pieces;
+    public static Piece[] pieces;
     public static ThreadTracker[] trackers;
     public static ThreadTracker MainTracker;
     public static PuzzleSolver[] solvers;
     
-    public static void Init (int _NumberOfTrackers, Piece[][] _pieces) {
+    public static void Init (int _NumberOfTrackers, Piece[] _pieces) {
         TrackerNumber = _NumberOfTrackers;
         pieces = _pieces;
         GenerateNTrackers();

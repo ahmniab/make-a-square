@@ -24,7 +24,7 @@ public class PieceOperations {
     public static Piece[] getAllRotations(int rows ,int cols,String [] lines) {
         List<Piece> rotations = new ArrayList<>();
         Piece current = new Piece(rows, cols, lines);
-        int Num = Piece.PossibleRotatins(rows,cols);
+        int Num = Piece.PossibleRotations(current);
 
         // Add all four rotations
         for (int i = 0; i < Num; i++) {

@@ -14,7 +14,7 @@ public class ThreadTracker {
     public ThreadTracker(Square s , int id){
         this.square = s;
         this.id = id;
-        if (id != -1) this.pieces = GlobalData.pieces[id];
+        if (id != -1) this.pieces = GlobalData.pieces;
         threadState = ThreadState.NOT_STARTED;
     }
     

@@ -7,7 +7,7 @@ public class Piece {
     public int columns;
     public int rotations;
     public String[] Lines;
-    public boolean [][] description;
+    public boolean[][] description;
 
 
     public Piece(int r,int c,String[] l) {
@@ -18,6 +18,7 @@ public class Piece {
         setDescription(Lines);
         SetRotations();
     }
+    
     public Piece(int r, int c, String[] l, int id) {
         this.piece_number = id;
         this.rows = r;
@@ -33,22 +34,61 @@ public class Piece {
             for(int j=0;j<this.columns;j++)
                 this.description[i][j] = Lines[i].charAt(j) == '1';
     }
+    
     private void SetRotations ()
     {
-        if (this.rows == this.columns) this.rotations = 3;
-        else if (this.rows == 1 || this.columns ==1) this.rotations = 2;
-        else this.rotations = 0;
-
+        this.rotations = PossibleRotations(this);
     }
 
     public void ResetRotations(){
         SetRotations();
     }
 
-    public static int  PossibleRotatins(int r, int c)
+    public static int PossibleRotations(Piece p)
     {
-        if (r == c) return  1;
-        else if (r == 1 || c ==1) return  2;
-        else return  4;
+        if (p.rows == 1 && p.columns == 1) return 1;
+        if (p.rows == 1 ^ p.columns == 1) return 2;
+        
+        int rotations = 4;
+        
+        if (IsSymmetricalOnX(p.description)) rotations -= 2;
+        if (IsSymmetricalOnY(p.description)) rotations -= 2;
+        
+        return rotations;
+    }
+    
+    public static boolean IsSymmetricalOnX (boolean[][] matrix) {
+        int height = matrix.length;
+        int width = matrix[0].length;
+
+        // Check each row in the top half with its mirror row in the bottom half
+        for (int i = 0; i < height / 2; i++) {
+            boolean[] topRow = matrix[i];
+            boolean[] bottomRow = matrix[height - i - 1];
+
+            for (int j = 0; j < width; j++) {
+                if (topRow[j] != bottomRow[j]) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    public static boolean IsSymmetricalOnY (boolean[][] matrix) {
+        int height = matrix.length;
+        int width = matrix[0].length;
+
+        // Check each column in the left half with its mirror column in the right half
+        for (int j = 0; j < height; j++) {
+            for (int x = 0; x < width / 2; x++) {
+                if (matrix[j][x] != matrix[j][width - x - 1]) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
     }
 }
