@@ -2,11 +2,8 @@ package com.project.gui;
 import com.almasb.fxgl.app.GameApplication ;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.dsl.FXGL;
-import com.project.app.PuzzleSolver;
 import com.project.data.*;
 import javafx.scene.input.KeyCode;
-import javafx.stage.Screen;
-
 
 public class Window extends GameApplication {
     final int WindowWidth = 1400, WindowHeight = 750;
@@ -48,7 +45,7 @@ public class Window extends GameApplication {
         float PieceScale = 0.5f;
         int h = (int)Renderer.PXSize(new Square(),PieceScale).h;
 
-        Renderer.DrawPieces(GlobalData.trackers[0].pieces,
+        Renderer.DrawPieces(GlobalData.pieces,
                 30, WindowHeight - h - 30, PieceScale);
     }
 

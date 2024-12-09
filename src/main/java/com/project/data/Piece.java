@@ -27,6 +27,15 @@ public class Piece {
         setDescription(Lines);
         SetRotations();
     }
+    
+    public Piece(Piece p) {
+        this.piece_number = p.piece_number;
+        this.rows = p.rows;
+        this.columns = p.columns;
+        this.Lines = p.Lines;
+        setDescription(Lines);
+        SetRotations();
+    }
 
     private void setDescription(String[] Lines) {
         this.description = new boolean[this.rows][this.columns];
@@ -40,21 +49,27 @@ public class Piece {
         this.rotations = PossibleRotations(this);
     }
 
-    public void ResetRotations(){
-        SetRotations();
-    }
-
-    public static int PossibleRotations(Piece p)
+    private static int PossibleRotations(Piece p)
     {
         if (p.rows == 1 && p.columns == 1) return 1;
-        if (p.rows == 1 ^ p.columns == 1) return 2;
         
-        int rotations = 4;
-        
-        if (IsSymmetricalOnX(p.description)) rotations -= 2;
-        if (IsSymmetricalOnY(p.description)) rotations -= 2;
-        
-        return rotations;
+        if (p.rows == p.columns) {
+            int rotations = 4;
+
+            if (IsSymmetricalOnX(p.description)) rotations -= 2;
+            if (IsSymmetricalOnY(p.description)) rotations -= 2;
+
+            if (rotations == 0) return 1;
+
+            return rotations;
+        } else {
+            for (int i = 0; i < p.rows; i++) {
+                for (int j = 0; j < p.columns; j++) {
+                    if (p.description[i][j] == false) return 4;
+                }
+            }
+            return 2;
+        }
     }
     
     public static boolean IsSymmetricalOnX (boolean[][] matrix) {

@@ -21,10 +21,10 @@ public class PieceOperations {
 
 
 
-    public static Piece[] getAllRotations(int rows ,int cols,String [] lines) {
+    public static Piece[] getAllRotations(int rows ,int cols, String[] lines) {
         List<Piece> rotations = new ArrayList<>();
         Piece current = new Piece(rows, cols, lines);
-        int Num = Piece.PossibleRotations(current);
+        int Num = current.rotations;
 
         // Add all four rotations
         for (int i = 0; i < Num; i++) {

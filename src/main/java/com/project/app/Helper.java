@@ -25,14 +25,14 @@ public class Helper {
         //genarate pieces
         int file_number = ScanInt("Enter input file number : " , 1 , files.length) - 1;
         try {
-            allPieces = DataEntry.ThreadsData(inputs_path.getName()+"/"+files[file_number].getName());
+            allPieces = DataEntry.GetPiecesFromFile(files[file_number]);
         }
         catch (Exception e){
             return false;
         }
 
         //init threads
-        GlobalData.Init(Piece.PossibleRotations(allPieces[0]), allPieces);
+        GlobalData.Init(allPieces[0].rotations, allPieces);
 
         GlobalData.solvers = new PuzzleSolver[GlobalData.TrackerNumber];
         for (int i = 0; i < GlobalData.TrackerNumber; i++) { // assign trackers to its thread

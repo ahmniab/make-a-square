@@ -1,7 +1,6 @@
 package com.project.app;
 
 import com.project.data.*;
-import com.sun.source.tree.IfTree;
 
 import java.util.Stack;
 
@@ -11,8 +10,7 @@ public class PuzzleSolver extends Thread {
     public PuzzleSolver(ThreadTracker tracker){
         super();
         this.tracker = tracker;
-        tracker.ThreadName = getName();
-
+        tracker.ThreadName = "Thread " + this.tracker.id;
     }
     
     @Override
@@ -64,10 +62,9 @@ public class PuzzleSolver extends Thread {
             }
         }
         return New;
-
     }
 
-    public boolean IsSolved (Square s){
+    public boolean IsSolved (Square s) {
         for (int i = 0;i<4;i++)
             for (int j=0;j<4;j++)
                 if(s.data[i][j] == -1)
@@ -77,61 +74,62 @@ public class PuzzleSolver extends Thread {
 
     public boolean Solve (){
         Square s = tracker.square;
-        Piece[] pieces = tracker.pieces;
-        Square S = new Square();
-        Stack<com.project.data.State> stack = new Stack<>();
-        stack.push(new com.project.data.State( 0, 0, 0 ,S));
+        
+        Piece pieces[] = new Piece[GlobalData.pieces.length];
+        for (int i = 0; i < pieces.length; i++) {
+            pieces[i] = new Piece(GlobalData.pieces[i]);
+        }
+        
+        for (int i = 0; i < tracker.id; i++)
+            PieceOperations.rotateClockWise(pieces[0]);
+        Square square_state = new Square();
+        Stack<SquareState> stack = new Stack<>();
+        stack.push(new SquareState(0 ,square_state));
         
         while (!stack.isEmpty()) {
-            com.project.data.State cs = stack.pop();
+            SquareState current_state = stack.pop();
 
             if (GlobalData.MainTracker.threadState == ThreadState.SUCCEEDED) {
-                return IsSolved(cs.S);
+                return IsSolved(current_state.S);
             }
 
-            if(IsSolved(cs.S)) {
+            if(IsSolved(current_state.S)) {
                 return true;
             }
+            
+            if (current_state.index_of_piece >= pieces.length) return false;
 
-            if(cs.index >= pieces.length) return false;
+            Piece C_piece = pieces[current_state.index_of_piece];
 
-            Piece C_piece = pieces[cs.index];
-
-            int PieceRotations = 4 - C_piece.rotations;
+            int PieceRotations = C_piece.rotations;
             for (int rotaion = 0; rotaion < PieceRotations; rotaion++) {
-                for (int i = cs.x; i < 4; i++) {
-                    for (int j = (i == cs.x ? cs.y : 0); j < 4; j++) {
-                        if (IsValid(C_piece, cs.S, i, j)) {
-                            Square NewSquare = PutPiece(C_piece, cs.S, i, j);
-                            stack.push(new com.project.data.State(0, 0, cs.index + 1, NewSquare));
+                for (int i = 0; i < 4; i++) {
+                    for (int j = 0; j < 4; j++) {
+                        if (IsValid(C_piece, current_state.S, i, j)) {
+                            Square NewSquare = PutPiece(C_piece, current_state.S, i, j);
+                            stack.push(new SquareState(current_state.index_of_piece + 1, NewSquare));
                             s.data = stack.peek().S.data;
-                            //if (cs.index < pieces.length - 2) continue;
+                            //if (current_state.index_of_piece < pieces.length - 2) continue;
                             try {
                                 Thread.sleep(300);
                             } catch (Exception e) {
                                 break;
                             }
                         }
-
                     }
                 }
-                if (cs.index == 0) break;
-                PieceOperations.rotateClockWise(pieces[cs.index]);
+                if (current_state.index_of_piece == 0) break;
+                PieceOperations.rotateClockWise(pieces[current_state.index_of_piece]);
             }
-
-            pieces[cs.index].ResetRotations();
-
-
-
-            for (int i =0;i<4;i++) {
-                for (int j = 0; j < 4; j++)
-                    System.out.print(stack.peek().S.data[i][j] +"   ");
-                System.out.println();
-            }
-            System.out.println();
-            System.out.println();
-            System.out.println();
-
+            
+//            for (int i =0;i<4;i++) {
+//                for (int j = 0; j < 4; j++)
+//                    System.out.print(stack.peek().S.data[i][j] +"   ");
+//                System.out.println();
+//            }
+//            System.out.println();
+//            System.out.println();
+//            System.out.println();
         }
         
         return false;

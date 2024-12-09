@@ -9,26 +9,12 @@ import java.util.ArrayList;
 public class DataEntry {
 
 
-    public static Piece[] ThreadsData (String filePath) throws IOException
+    public static Piece[] GetPiecesFromFile (File file) throws IOException
     {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))){
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))){
             int numPieces = Integer.parseInt(reader.readLine().trim());
-
-//            String[] firstDimensions = reader.readLine().trim().split(" ");
-//            int FirstRows = Integer.parseInt(firstDimensions[0]);
-//            int FirstColumns = Integer.parseInt(firstDimensions[1]);
-//            List<String> Firstshape = new ArrayList<>();
-//            for (int j = 0; j < FirstRows; j++) {
-//                Firstshape.add(reader.readLine().trim());
-//            }
-//            int numRotation = Piece.rotations;
-//            Piece [][] DE = new Piece[numRotation][numPieces];
-//            Piece [] FirstRotations = PieceOperations.getAllRotations(FirstRows,FirstColumns,Firstshape.toArray(new String[0]));
-//
-//            for(int i = 0; i < FirstRotations.length; i++)
-//                DE[i][0] = FirstRotations[i];
-
-            Piece [] DE = new Piece[numPieces];
+            
+            Piece[] pieces = new Piece[numPieces];
 
             for (int i = 0; i < numPieces; i++)
             {
@@ -40,11 +26,11 @@ public class DataEntry {
                     shape.add(reader.readLine().trim());
                 }
                 
-                DE[i] = new Piece(Rows, Columns, shape.toArray(new String[0]), i );
+                pieces[i] = new Piece(Rows, Columns, shape.toArray(new String[0]), i );
 
             }
 
-            return DE;
+            return pieces;
         }
     }
 }
