@@ -104,7 +104,7 @@ public class PuzzleSolver extends Thread{
                         if (IsValid(C_piece, cs.S, i, j)) {
                             Square NewSquare = PutPiece(C_piece, cs.S, i, j);
                             stack.push(new com.project.data.State(0, 0, cs.index + 1, NewSquare));
-                            s.data = stack.getLast().S.data;
+                            s.data = stack.peek().S.data;
                             try {
                                 Thread.sleep(300);
 
