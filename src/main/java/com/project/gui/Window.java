@@ -46,7 +46,11 @@ public class Window extends GameApplication {
                         Renderer.PXSize(MainTracker.square,1.5f).h / 2 - 100 ,
                 1.5f);
 
+        float PieceScale = 0.5f;
+        int h = (int)Renderer.PXSize(new Square(),PieceScale).h;
 
+        Renderer.DrawPieces(GlobalData.getInstance().trackers[0].pieces,
+                30, WindowHeight - h - 30, PieceScale);
     }
 
     public void start(String[] args) {
