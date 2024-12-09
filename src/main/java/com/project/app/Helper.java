@@ -69,17 +69,10 @@ public class Helper {
     public static String StateString(ThreadState state){
         String s = "Failed to get status";
         switch (state){
-<<<<<<< HEAD
-            case FAILED      -> s = "Failed To Solve"    ;
-            case RUNNING     -> s = "Running Now"        ;
-            case SUCCEEDED   -> s = "Succeeded"          ;
-            case NOT_STARTED -> s = "Thread Didn't Start";
-=======
             case FAILED      -> s = "Failed to solve"      ;
             case RUNNING     -> s = "Running now"          ;
             case SUCCEEDED   -> s = "Succeeded"            ;
             case NOT_STARTED -> s = "Thread hasn't started";
->>>>>>> b1b771641cd67fa8a7905c71f3744deabc20c385
         }
         return s;
     }
