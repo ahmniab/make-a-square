@@ -1,6 +1,7 @@
 package com.project.app;
 
 import com.project.data.*;
+import com.sun.source.tree.IfTree;
 
 import java.util.Stack;
 
@@ -10,6 +11,7 @@ public class PuzzleSolver extends Thread {
     public PuzzleSolver(ThreadTracker tracker){
         super();
         this.tracker = tracker;
+        tracker.ThreadName = getName();
 
     }
     
@@ -18,17 +20,16 @@ public class PuzzleSolver extends Thread {
         System.out.println(getName()+" Started");
         tracker.threadState = ThreadState.RUNNING;
         boolean success = Solve();
-        ThreadTracker __main_tracker = GlobalData.MainTracker;
-        
         if (success) {
             tracker.threadState = ThreadState.SUCCEEDED;
-            __main_tracker.threadState = ThreadState.SUCCEEDED;
-            __main_tracker.square.data = tracker.square.data;
-        } else {
+            GlobalData.getInstance().SubmitSolution(tracker);
+
+        }else {
             tracker.threadState = ThreadState.FAILED;
+            GlobalData.getInstance().SubmitFailed();
         }
-        
-        __main_tracker.UpdateWindow();
+
+
     }
 
     public boolean IsValid (Piece p, Square s, int x, int y){
@@ -85,6 +86,11 @@ public class PuzzleSolver extends Thread {
         
         while (!stack.isEmpty()) {
             com.project.data.State cs = stack.pop();
+
+            if (GlobalData.getInstance().MainTracker.threadState == ThreadState.SUCCEEDED) {
+                return IsSolved(cs.S);
+            }
+
             if(IsSolved(cs.S)) {
                 return true;
             }
@@ -100,7 +106,7 @@ public class PuzzleSolver extends Thread {
                         if (IsValid(C_piece, cs.S, i, j)) {
                             Square NewSquare = PutPiece(C_piece, cs.S, i, j);
                             stack.push(new com.project.data.State(0, 0, cs.index + 1, NewSquare));
-                            s.data = stack.getLast().S.data;
+                            s.data = stack.peek().S.data;
                             //if (cs.index < pieces.length - 2) continue;
                             try {
                                 Thread.sleep(300);

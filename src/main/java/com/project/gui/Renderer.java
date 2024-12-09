@@ -57,6 +57,13 @@ public class Renderer {
 
         }
     }
+    public static void DrawPieces(Piece[] ps, int x, int y , float scale){
+        int XMarginBTWPieces = 30;
+        for (int i = 0; i < ps.length; i++) {
+            DrawPiece(ps[i], x, y, scale);
+            x += XMarginBTWPieces + PXSize(ps[i] , scale).w;
+        }
+    }
     public static void DrawTracker(ThreadTracker t , int x , int y , float scale ){
         FXGL.spawn("StateSquare",
                 new SpawnData(x, y)
@@ -67,13 +74,12 @@ public class Renderer {
 
     public static void DrawThreadTrackers(ThreadTracker [] trackers ,float scale){
         int WindowWidth  = (int) FXGL.getAppWidth();
-        int WindowHeight = (int) FXGL.getAppHeight();
         RectSize TSize = PXSize(trackers[0].square ,scale);
         int ThreadBlockMargin = 30;
         int text_section = 0;
 
-        for (int i = 0 , row = 0 ; row < 2 ; row++) {
-            for (int col = 0 ; col < 3 ; col++) {
+        for (int i = 0 , row = 0 ; row < 3 ; row++) {
+            for (int col = 0 ; col < 2 ; col++) {
                 int x = WindowWidth  - (col+1)*(TSize.w + ThreadBlockMargin);
                 int y = row*(TSize.h + ThreadBlockMargin) + text_section;
                 try {
