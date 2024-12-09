@@ -22,14 +22,12 @@ public class PuzzleSolver extends Thread {
         boolean success = Solve();
         if (success) {
             tracker.threadState = ThreadState.SUCCEEDED;
-            GlobalData.getInstance().SubmitSolution(tracker);
+            GlobalData.SubmitSolution(tracker);
 
-        }else {
+        } else {
             tracker.threadState = ThreadState.FAILED;
-            GlobalData.getInstance().SubmitFailed();
+            GlobalData.SubmitFailed();
         }
-
-
     }
 
     public boolean IsValid (Piece p, Square s, int x, int y){
@@ -87,7 +85,7 @@ public class PuzzleSolver extends Thread {
         while (!stack.isEmpty()) {
             com.project.data.State cs = stack.pop();
 
-            if (GlobalData.getInstance().MainTracker.threadState == ThreadState.SUCCEEDED) {
+            if (GlobalData.MainTracker.threadState == ThreadState.SUCCEEDED) {
                 return IsSolved(cs.S);
             }
 

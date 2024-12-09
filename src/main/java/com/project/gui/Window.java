@@ -26,8 +26,8 @@ public class Window extends GameApplication {
                             GlobalData.solvers[i].start();
                         }
                     }
-                    if(__data.MainTracker.threadState == ThreadState.NOT_STARTED)
-                        __data.MainTracker.threadState = ThreadState.RUNNING;
+                    if(GlobalData.MainTracker.threadState == ThreadState.NOT_STARTED)
+                        GlobalData.MainTracker.threadState = ThreadState.RUNNING;
                 });
     }
 
@@ -48,7 +48,7 @@ public class Window extends GameApplication {
         float PieceScale = 0.5f;
         int h = (int)Renderer.PXSize(new Square(),PieceScale).h;
 
-        Renderer.DrawPieces(GlobalData.getInstance().trackers[0].pieces,
+        Renderer.DrawPieces(GlobalData.trackers[0].pieces,
                 30, WindowHeight - h - 30, PieceScale);
     }
 
