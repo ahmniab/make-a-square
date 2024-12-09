@@ -71,6 +71,7 @@ public class Factory implements EntityFactory {
             }
         }
 
+        // status label
         Text StatusLabel = new Text(Helper.StateString(tracker.threadState));
         StatusLabel.setTranslateX(data.getX());
         StatusLabel.setTranslateY(data.getY() + 4 * (smallSquareSize + margin) + 30); // Position below the square
@@ -79,8 +80,25 @@ public class Factory implements EntityFactory {
         FXGL.getGameScene().addUINode(StatusLabel);
 
 
-        tracker.guiData = new GuiData(StatusLabel, rectangles);
-        root.addComponent(new UpdateComponent(tracker));
+        // thread name label
+        Text NameLabel = new Text(tracker.ThreadName);
+        NameLabel.setTranslateX(data.getX());
+        NameLabel.setTranslateY(data.getY() + 4 * (smallSquareSize + margin) + 60); // Position below the square
+        NameLabel.setFill(Renderer.StateColor(tracker.threadState)); // Text color
+        NameLabel.setFont(Font.font("Arial", FontWeight.BOLD,20));
+        tracker.NameLabel = NameLabel;
+        FXGL.getGameScene().addUINode(NameLabel);
+
+
+        root.addComponent(new UpdateComponent(()->{
+                for (int row = 0; row < 4; row++) {
+                    for (int col = 0; col < 4; col++)
+                        rectangles.get(row).get(col).setFill(Renderer.GetColor(square.data[row][col]));
+
+                }
+                StatusLabel.setFill(Renderer.StateColor(tracker.threadState));
+                StatusLabel.setText(Helper.StateString(tracker.threadState));
+        }));
 
         return root;
     }

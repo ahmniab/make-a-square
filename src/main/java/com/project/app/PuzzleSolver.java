@@ -10,6 +10,7 @@ public class PuzzleSolver extends Thread{
     public PuzzleSolver(ThreadTracker tracker){
         super();
         this.tracker = tracker;
+        tracker.ThreadName = getName();
 
     }
     @Override
@@ -19,7 +20,7 @@ public class PuzzleSolver extends Thread{
         boolean success = Solve();
         if (success) {
             tracker.threadState = ThreadState.SUCCEEDED;
-            GlobalData.getInstance().SubmitSolution(tracker.square.data);
+            GlobalData.getInstance().SubmitSolution(tracker);
 
         }else {
             tracker.threadState = ThreadState.FAILED;

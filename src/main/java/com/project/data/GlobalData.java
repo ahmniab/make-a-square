@@ -28,10 +28,12 @@ public class GlobalData {
             trackers[i] = new ThreadTracker(new Square() , i);
         }
     }
-    public synchronized void SubmitSolution(int [][] data){
+    public synchronized void SubmitSolution(ThreadTracker tracker){
         if(!SolutionFound) {
             MainTracker.threadState = ThreadState.SUCCEEDED;
-            MainTracker.square.data = data;
+            MainTracker.square.data = tracker.square.data;
+            MainTracker.ThreadName = "Solved by " + tracker.ThreadName;
+            MainTracker.NameLabel.setText(MainTracker.ThreadName);
             SolutionFound = true;
         }
     }
