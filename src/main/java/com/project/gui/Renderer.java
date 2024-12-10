@@ -64,10 +64,10 @@ public class Renderer {
             x += XMarginBTWPieces + PXSize(ps[i] , scale).w;
         }
     }
-    public static void DrawTracker(ThreadTracker t , int x , int y , float scale ){
+    public static void DrawTracker(ThreadTracker tracker , int x , int y , float scale ){
         FXGL.spawn("StateSquare",
                 new SpawnData(x, y)
-                        .put("Tracker",t)
+                        .put("Tracker",tracker)
                         .put("scale", scale));
 
     }

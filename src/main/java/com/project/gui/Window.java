@@ -31,9 +31,7 @@ public class Window extends GameApplication {
     @Override
     protected void initGame() {
         FXGL.getGameWorld().addEntityFactory(new Factory());
-        float ThreadScale = 1f;
-        ThreadTracker[] trackers = GlobalData.trackers;
-        Renderer.DrawThreadTrackers(trackers , ThreadScale);
+        Renderer.DrawThreadTrackers(GlobalData.trackers , 1f);
 
         ThreadTracker MainTracker = GlobalData.MainTracker;
 
