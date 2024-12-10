@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Helper {
-    static Scanner s = new Scanner(System.in);
     public static boolean Init(){
         //init vars
         File inputs_path = new File("inputs/");
@@ -48,6 +47,7 @@ public class Helper {
     }
 
     public static int ScanInt(String text, int min, int max){
+        Scanner s = new Scanner(System.in);
         while (true) {
             System.out.print(text);
             try {
