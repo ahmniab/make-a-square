@@ -76,7 +76,7 @@ public class Factory implements EntityFactory {
         Text NameLabel = new Text(tracker.ThreadName);
         NameLabel.setTranslateX(data.getX());
         NameLabel.setTranslateY(data.getY() + 4 * (smallSquareSize + Renderer.Margin) + 60); // Position below the square
-        NameLabel.setFill(Renderer.StateColor(tracker.threadState)); // Text color
+        NameLabel.setFill(Color.BLACK); // Text color
         NameLabel.setFont(Font.font("Arial", FontWeight.BOLD,20));
         tracker.NameLabel = NameLabel;
         FXGL.getGameScene().addUINode(NameLabel);
