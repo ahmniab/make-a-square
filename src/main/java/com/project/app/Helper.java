@@ -2,7 +2,12 @@ package com.project.app;
 
 import com.project.data.*;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Helper {
@@ -25,7 +30,7 @@ public class Helper {
         //genarate pieces
         int file_number = ScanInt("Enter input file number : " , 1 , files.length) - 1;
         try {
-            allPieces = DataEntry.GetPiecesFromFile(files[file_number]);
+            allPieces = GetPiecesFromFile(files[file_number]);
         }
         catch (Exception e){
             return false;
@@ -41,18 +46,7 @@ public class Helper {
 
         return true;
     }
-    
-    public static int ScanInt(String text){
-        while (true) {
-            System.out.print(text);
-            try {
-                return s.nextInt();
-            } catch (Exception e) {
-                System.out.println("Invalid input");
-            }
-        }
-    }
-    
+
     public static int ScanInt(String text, int min, int max){
         while (true) {
             System.out.print(text);
@@ -66,14 +60,28 @@ public class Helper {
         }
     }
 
-    public static String StateString(ThreadState state){
-        String s = "Failed to get status";
-        switch (state){
-            case FAILED      -> s = "Failed to solve"      ;
-            case RUNNING     -> s = "Running now"          ;
-            case SUCCEEDED   -> s = "Succeeded"            ;
-            case NOT_STARTED -> s = "Thread hasn't started";
+    public static Piece[] GetPiecesFromFile (File file) throws IOException
+    {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))){
+            int numPieces = Integer.parseInt(reader.readLine().trim());
+
+            Piece[] pieces = new Piece[numPieces];
+
+            for (int i = 0; i < numPieces; i++)
+            {
+                String[] Dimensions = reader.readLine().trim().split(" ");
+                int Rows = Integer.parseInt(Dimensions[0]);
+                int Columns = Integer.parseInt(Dimensions[1]);
+                List<String> shape = new ArrayList<>();
+                for (int j = 0; j < Rows; j++) {
+                    shape.add(reader.readLine().trim());
+                }
+
+                pieces[i] = new Piece(Rows, Columns, shape.toArray(new String[0]), i );
+
+            }
+
+            return pieces;
         }
-        return s;
     }
 }

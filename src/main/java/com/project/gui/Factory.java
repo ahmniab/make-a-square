@@ -64,7 +64,7 @@ public class Factory implements EntityFactory {
         }
 
         // status label
-        Text StatusLabel = new Text(Helper.StateString(tracker.threadState));
+        Text StatusLabel = new Text(Renderer.StateString(tracker.threadState));
         StatusLabel.setTranslateX(data.getX());
         StatusLabel.setTranslateY(data.getY() + 4 * (smallSquareSize + Renderer.Margin) + 30); // Position below the square
         StatusLabel.setFill(Renderer.StateColor(tracker.threadState)); // Text color
@@ -89,7 +89,7 @@ public class Factory implements EntityFactory {
                         rectangles.get(row).get(col).setFill(Renderer.GetColor(square.data[row][col]));
                 }
                 StatusLabel.setFill(Renderer.StateColor(tracker.threadState));
-                StatusLabel.setText(Helper.StateString(tracker.threadState));
+                StatusLabel.setText(Renderer.StateString(tracker.threadState));
         }));
 
         return UpdateEntity;
