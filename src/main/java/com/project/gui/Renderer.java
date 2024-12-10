@@ -6,10 +6,13 @@ import com.project.data.*;
 import javafx.scene.paint.Color;
 
 public class Renderer {
+    // global rendering data
     final static int BlockWidth = 50;
     final static int Margin = 2;
     final static int TextSectionSize = 150;
 
+
+    // thread data
     private final static Color Colors[] = {
             Color.TOMATO ,
             Color.GREENYELLOW ,
@@ -26,16 +29,25 @@ public class Renderer {
         Color c = Color.BLACK;
         switch (state){
             case NOT_STARTED -> c = Color.BLACK;
-            case RUNNING -> c = Color.BLUE;
-            case SUCCEEDED -> c = Color.GREEN;
-            case FAILED -> c = Color.RED;
+            case RUNNING     -> c = Color.BLUE ;
+            case SUCCEEDED   -> c = Color.GREEN;
+            case FAILED      -> c = Color.RED  ;
 
         }
         return c;
-
+    }
+    public static String StateString(ThreadState state){
+        String s = "Failed to get status";
+        switch (state){
+            case FAILED      -> s = "Failed to solve"      ;
+            case RUNNING     -> s = "Running now"          ;
+            case SUCCEEDED   -> s = "Succeeded"            ;
+            case NOT_STARTED -> s = "Thread hasn't started";
+        }
+        return s;
     }
 
-
+    //pieces
     public static void DrawPiece(Piece p , int x , int y , float scale){
         int XMargin = 0;
         int YMargin = 0;
@@ -64,6 +76,8 @@ public class Renderer {
             x += XMarginBTWPieces + PXSize(ps[i] , scale).w;
         }
     }
+
+    //trackers
     public static void DrawTracker(ThreadTracker tracker , int x , int y , float scale ){
         FXGL.spawn("StateSquare",
                 new SpawnData(x, y)
@@ -94,6 +108,7 @@ public class Renderer {
         }
     }
 
+    // element size
     public static RectSize PXSize(Piece p ,float scale){
         int ScaledWidth = (int)(BlockWidth * scale);
 
