@@ -49,22 +49,22 @@ public class Renderer {
 
     //pieces
     public static void DrawPiece(Piece p , int x , int y , float scale){
-        int XMargin = 0;
-        int YMargin = 0;
+        int XMargin = Margin;
+        int YMargin = Margin;
         int ScaledWidth = (int)(BlockWidth * scale);
 
         for (int row = 0; row < p.description.length; row++) {
-            for (int col = 0; col < p.description[row].length; col++) {
+            for (int col = 0; col < p.description[0].length; col++) {
                 if(p.description[row][col]){
                     FXGL.spawn("block",
                             new SpawnData(x + col * (ScaledWidth + YMargin), y + row * (ScaledWidth + XMargin))
                                     .put("color", Colors[p.piece_number])
                                     .put("width", ScaledWidth));
                 }
-                YMargin = Margin ;
+//                YMargin = Margin ;
             }
-            XMargin = Margin;
-            YMargin = 0;
+//            XMargin = Margin;
+//            YMargin = 0;
 
 
         }

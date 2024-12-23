@@ -17,15 +17,15 @@ public class Window extends GameApplication {
     @Override
     protected void initInput() {
         FXGL.onKey(KeyCode.ENTER, "Start Solving",
-                () -> {
-                    for (int i = 0; i < GlobalData.solvers.length; i++) {
-                        if (GlobalData.solvers[i].getState() == Thread.State.NEW) {
-                            GlobalData.solvers[i].start();
-                        }
+            () -> {
+                for (int i = 0; i < GlobalData.solvers.length; i++) {
+                    if (GlobalData.solvers[i].getState() == Thread.State.NEW) {
+                        GlobalData.solvers[i].start();
                     }
-                    if(GlobalData.MainTracker.threadState == ThreadState.NOT_STARTED)
-                        GlobalData.MainTracker.threadState = ThreadState.RUNNING;
-                });
+                }
+                if(GlobalData.MainTracker.threadState == ThreadState.NOT_STARTED)
+                    GlobalData.MainTracker.threadState = ThreadState.RUNNING;
+            });
     }
 
     @Override

@@ -74,14 +74,16 @@ public class PuzzleSolver extends Thread {
 
     public boolean Solve (){
         Square s = tracker.square;
-        
+
+        // copy pieces
         Piece pieces[] = new Piece[GlobalData.pieces.length];
         for (int i = 0; i < pieces.length; i++) {
             pieces[i] = new Piece(GlobalData.pieces[i]);
         }
-        
+        // rotate first piece
         for (int i = 0; i < tracker.id; i++)
             PieceOperations.rotateClockWise(pieces[0]);
+
         Square square_state = new Square();
         Stack<SquareState> stack = new Stack<>();
         stack.push(new SquareState(0 ,square_state));
@@ -89,6 +91,7 @@ public class PuzzleSolver extends Thread {
         while (!stack.isEmpty()) {
             SquareState current_state = stack.pop();
 
+//            There may be more than one possible solution for a set of pieces
             if (GlobalData.MainTracker.threadState == ThreadState.SUCCEEDED) {
                 return IsSolved(current_state.S);
             }
